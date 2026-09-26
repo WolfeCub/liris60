@@ -1,0 +1,8 @@
+[package]
+name = "bootsel"
+version = "0.1.0"
+edition = "2024"
+description = "Reboot the liris60 central into BOOTSEL over Via"
+
+[dependencies]
+hidapi = "2"

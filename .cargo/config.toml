@@ -1,9 +1,13 @@
 [target.'cfg(all(target_arch = "arm", target_os = "none"))']
-runner = "probe-rs run --chip RP2040"
-# runner = "elf2uf2-rs -d"
+# Flash a board in BOOTSEL over USB.
+runner = "picotool load -u -v -x -t elf"
 
 [build]
 target = "thumbv6m-none-eabi" # Cortex-M0 and Cortex-M0+
+
+[alias]
+# Reboot the central into BOOTSEL; built for this machine, not the RP2040.
+bootsel = "run -q --manifest-path tools/bootsel/Cargo.toml --target host-tuple"
 
 [env]
 DEFMT_LOG = "info"

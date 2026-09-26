@@ -1,53 +1,35 @@
-# RMK 
+# liris60
 
-RMK is a feature-rich and easy-to-use keyboard firmware.
+A handwired split keyboard running [RMK](https://rmk.rs).
 
-## Use the template
+- Lily58/Iris hybrid that merges their thumb clusters, designed with [Cosmos](https://ryanis.cool/cosmos)
+- Two Waveshare RP2040-Zeros, one per half
+- The right half connects over USB and talks to the left half over UART through a TRRS cable
+- Wiring, layers and the keymap are all in `keyboard.toml`
 
-1. Install [probe-rs](https://github.com/probe-rs/probe-rs)
+## Setup
 
-   ```shell
-   # Linux/macOS
-   curl --proto '=https' --tlsv1.2 -LsSf https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-tools-installer.sh | sh
+- `nix develop` (or `direnv allow`) provides the Rust toolchain, `flip-link`, `picotool` and `rmkit`
 
-   # Windows
-   irm https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-tools-installer.ps1 | iex
-   ```
+## Flashing
 
-2. Build the firmware
+- **Right half:**
+  ```sh
+  cargo bootsel
+  cargo run --release --bin central
+  ```
+- **Left half:** hold the top-left key while plugging it in, then run
+  ```sh
+  cargo run --release --bin peripheral
+  ```
+- Keymap changes only need the right half reflashed
+- `cargo run` uses `picotool` to flash whichever board is in BOOTSEL
 
-   ```shell
-   cargo build --release
-   ```
+## `cargo bootsel`
 
-3. Flash using debug probe
+Reboots the right half into its bootloader (BOOTSEL) without touching the board.
 
-   If you have a debug probe connected to your rp2040 board, flashing is quite simple: run the following command to automatically compile and flash RMK firmware to the board:
-
-   ```shell
-   cargo run --release
-   ```
-
-4. (Optional) Flash using USB
-
-   If you don't have a debug probe, you can use `elf2uf2-rs` to flash your rp2040 firmware via USB. There are several additional steps you have to do:
-
-   1. Install `elf2uf2-rs`: `cargo install elf2uf2-rs`
-   2. Update `.cargo/config.toml`, use `elf2uf2` as the flashing tool
-      ```diff
-      - runner = "probe-rs run --chip RP2040"
-      + runner = "elf2uf2-rs -d"
-      ```
-   3. Connect your rp2040 board holding the BOOTSEL key, ensure that rp's USB drive appears
-   4. Flash
-      ```shell
-      cargo run --release
-      ```
-      Then, you will see logs like if everything goes right:
-      ```shell
-      Finished release [optimized + debuginfo] target(s) in 0.21s
-      Running `elf2uf2-rs -d 'target\thumbv6m-none-eabi\release\rmk-rp2040'`
-      Found pico uf2 disk G:\
-      Transfering program to pico
-      173.00 KB / 173.00 KB [=======================] 100.00 % 193.64 KB/s  
-      ```
+- Sends Via's BootloaderJump command over USB (source in `tools/bootsel`)
+- Only works on the right half, since the left half has no USB interface of its own
+- On macOS it may need Input Monitoring permission for your terminal
+- To enter BOOTSEL without it, hold a half's top outer key while plugging it in, or press its BOOT button
