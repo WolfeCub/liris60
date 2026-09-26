@@ -18,7 +18,7 @@ map = """
             [3]            (4,3,L)  (4,4,L)  (4,5,L)  (4,6,L)  [1]  (4,7,R)  (4,8,R)  (4,9,R)  (4,10,R)
 """
 
-# Layers: 0 Dvorak, 1 Gaming, 2 Shift, 3 Lower, 4 Raise.
+# Layers: 0 Dvorak, 1 Gaming, 2 Shift, 3 Lower, 4 Raise, 5 Chat.
 [aliases]
 lbrc = "LeftBracket"
 rbrc = "RightBracket"
@@ -59,18 +59,20 @@ mute = "AudioMute"
 play = "MediaPlayPause"
 prev = "MediaPrevTrack"
 next = "MediaNextTrack"
+chat_enter = "Macro(0)"
+chat_esc = "Macro(1)"
 
 [keymap]
-layers = 5
+layers = 6
 
 # Layer 0: Dvorak
 [[keymap.layer]]
 keys = """
 @dlr       @ampr      @lbrc      @lcbr      @rcbr      @lprn                               Equal      @astr      @rprn      @plus      @rbrc      Backspace
 Tab        Semicolon  Comma      Dot        P          Y                                   F          G          C          R          L          Slash
-@esc_ctl   A          O          E          U          I          Space         Space      D          H          T          N          S          Enter
-No         Quote      Q          J          K          X          @lower        LGui       B          M          W          V          Z          Minus
-                                 Space      @shift     LAlt       Space         @lower     @shift     LCtrl      Space
+@esc_ctl   A          O          E          U          I          _             _          D          H          T          N          S          Enter
+_          Quote      Q          J          K          X          @lower        LGui       B          M          W          V          Z          Minus
+                                 _          @shift     LAlt       Space         @lower     @shift     LCtrl      _
 """
 
 # Layer 1: Gaming
@@ -78,7 +80,7 @@ No         Quote      Q          J          K          X          @lower        
 keys = """
 Escape     Kc1        Kc2        Kc3        Kc4        Kc5                                 Kc6        Kc7        Kc8        Kc9        Kc0        Backspace
 Tab        Q          W          E          R          T                                   Y          U          I          O          P          Backslash
-LCtrl      A          S          D          F          G          _             _          H          J          K          L          Semicolon  Enter
+LCtrl      A          S          D          F          G          _             _          H          J          K          L          Semicolon  @chat_enter
 LShift     Z          X          C          V          B          Space         @raise     B          M          Comma      Dot        Slash      RShift
                                  _          LAlt       LAlt       Space         @lower     LCtrl      LShift     _
 """
@@ -106,16 +108,41 @@ LShift     _          _          _          _          _          _             
 # Layer 4: Raise
 [[keymap.layer]]
 keys = """
-_          _          _          _          _          _                                   _          _          _          _          _          No
+_          _          _          _          _          _                                   _          _          _          _          _          _
 _          _          _          _          _          _                                   _          MouseBtn1  MouseUp    MouseBtn2  _          _
 _          _          _          _          _          _          _             _          _          MouseLeft  MouseDown  MouseRight _          _
 _          _          _          _          _          _          @raise_tg     PageUp     _          _          _          _          _          Insert
                                  _          _          _          _             PageDown   _          @pscr      _
 """
 
+# Layer 5: Chat
+[[keymap.layer]]
+keys = """
+_          _          _          _          _          _                                   _          _          _          _          _          _
+_          _          _          _          _          _                                   _          _          _          _          _          _
+@chat_esc  _          _          _          _          _          _             _          _          _          _          _          _          @chat_enter
+_          _          _          _          _          _          _             _          _          _          _          _          _          _
+                                 _          _          _          _             _          _          _          _
+"""
+
 [storage]
 # Reload the keymap from this file on boot.
 clear_layout = true
+
+# Gaming Enter types Enter and swaps Gaming for Chat; Chat Enter or Esc swaps back.
+[[behavior.macro.macros]]
+operations = [
+  { operation = "tap", keycode = "Enter" },
+  { operation = "tap", keycode = "TG(1)" },
+  { operation = "tap", keycode = "TG(5)" },
+]
+
+[[behavior.macro.macros]]
+operations = [
+  { operation = "tap", keycode = "Escape" },
+  { operation = "tap", keycode = "TG(1)" },
+  { operation = "tap", keycode = "TG(5)" },
+]
 
 [split]
 connection = "serial"
