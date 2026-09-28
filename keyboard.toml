@@ -129,6 +129,11 @@ _          _          _          _          _          _          _             
 # Reload the keymap from this file on boot.
 clear_layout = true
 
+# Match the old QMK config: 150ms tapping term, mod-taps become the modifier as soon as another key is pressed.
+[behavior.morse]
+hold_on_other_press = true
+hold_timeout = "150ms"
+
 # Gaming Enter types Enter and swaps Gaming for Chat; Chat Enter or Esc swaps back.
 [[behavior.macro.macros]]
 operations = [
