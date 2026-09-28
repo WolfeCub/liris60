@@ -10,6 +10,7 @@ A handwired split keyboard running [RMK](https://rmk.rs).
 ## Setup
 
 - `nix develop` (or `direnv allow`) provides the Rust toolchain, `flip-link`, `picotool` and `rmkit`
+- Builds need `rmkit`, which generates the Vial layout from `keyboard.toml`
 
 ## Flashing
 

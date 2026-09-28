@@ -35,6 +35,7 @@ static_cell = "2"
 xz2 = "0.1.7"
 json = "0.12"
 const-gen = "1.6"
+toml = "1"
 
 [[bin]]
 name = "central"

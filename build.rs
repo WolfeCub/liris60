@@ -13,13 +13,13 @@
 use const_gen::*;
 use std::fs::File;
 use std::io::{Read, Write};
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
+use std::process::Command;
 use std::{env, fs};
 use xz2::read::XzEncoder;
 
 fn main() {
-    // Generate vial config at the root of project
-    println!("cargo:rerun-if-changed=vial.json");
+    // Generate vial config from keyboard.toml
     println!("cargo:rerun-if-changed=keyboard.toml");
 
     generate_vial_config();
@@ -57,19 +57,34 @@ fn main() {
 
 fn generate_vial_config() {
     // Generated vial config file
-    let out_file = Path::new(&env::var_os("OUT_DIR").unwrap()).join("config_generated.rs");
+    let out_dir = PathBuf::from(env::var_os("OUT_DIR").unwrap());
+    let out_file = out_dir.join("config_generated.rs");
 
-    let p = Path::new("vial.json");
-    let mut content = String::new();
-    match File::open(p) {
-        Ok(mut file) => {
-            file.read_to_string(&mut content)
-                .expect("Cannot read vial.json");
-        }
-        Err(e) => println!("Cannot find vial.json {:?}: {}", p, e),
-    };
+    // rmkit builds the layout but leaves the name and USB ids as placeholders.
+    let vial_json = out_dir.join("vial.json");
+    let output = Command::new("rmkit")
+        .args(["layout", "convert", "keyboard.toml", "--to-vial", "-o"])
+        .arg(&vial_json)
+        .output()
+        .expect("Cannot run rmkit, install it or use `nix develop`");
+    if !output.status.success() {
+        panic!("rmkit failed: {}", String::from_utf8_lossy(&output.stderr));
+    }
 
-    let vial_cfg = json::stringify(json::parse(&content).unwrap());
+    let keyboard_toml: toml::Table = fs::read_to_string("keyboard.toml")
+        .expect("Cannot read keyboard.toml")
+        .parse()
+        .expect("Cannot parse keyboard.toml");
+    let keyboard = &keyboard_toml["keyboard"];
+    let usb_id = |key: &str| format!("0x{:04X}", keyboard[key].as_integer().unwrap());
+
+    let mut vial = json::parse(&fs::read_to_string(&vial_json).unwrap()).unwrap();
+    vial["name"] = keyboard["name"].as_str().unwrap().into();
+    vial["vendorId"] = usb_id("vendor_id").into();
+    vial["productId"] = usb_id("product_id").into();
+    vial["lighting"] = "none".into();
+
+    let vial_cfg = json::stringify(vial);
     let mut keyboard_def_compressed: Vec<u8> = Vec::new();
     XzEncoder::new(vial_cfg.as_bytes(), 6)
         .read_to_end(&mut keyboard_def_compressed)

@@ -1554,6 +1554,7 @@ dependencies = [
  "portable-atomic",
  "rmk",
  "static_cell",
+ "toml",
  "xz2",
 ]
 
