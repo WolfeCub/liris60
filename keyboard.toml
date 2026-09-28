@@ -47,7 +47,7 @@ sent = "SHIFTED(Enter)"
 esc_ctl = "MT(Escape, LCtrl)"
 shift = "MO(2)"
 lower = "MO(3)"
-raise = "TT(4)"
+raise = "TD(0)"
 raise_tg = "TG(4)"
 gaming = "TG(1)"
 ctl_left = "WM(Left, LCtrl)"
@@ -72,7 +72,7 @@ keys = """
 Tab        Semicolon  Comma      Dot        P          Y                                   F          G          C          R          L          Slash
 @esc_ctl   A          O          E          U          I          _             _          D          H          T          N          S          Enter
 _          Quote      Q          J          K          X          @lower        LGui       B          M          W          V          Z          Minus
-                                 _          @shift     LAlt       Space         @lower     @shift     LCtrl      _
+                                 @raise     @shift     LAlt       Space         @lower     @shift     LCtrl      Backspace
 """
 
 # Layer 1: Gaming
@@ -102,7 +102,7 @@ F1         F2         F3         F4         F5         F6                       
 F7         F8         F9         F10        F11        F12                                 _          @ctl_left  Up         @ctl_right @at        Backslash
 _          _          _          _          _          _          _             _          _          Left       Down       Right      _          _
 LShift     _          _          _          _          _          _             @volu      @mute      @play      _          _          _          @gaming
-                                 _          _          _          _             @vold      @prev      @next      _
+                                 _          LShift     _          _             @vold      @prev      @next      _
 """
 
 # Layer 4: Raise
@@ -133,6 +133,12 @@ clear_layout = true
 [behavior.morse]
 hold_on_other_press = true
 hold_timeout = "150ms"
+
+# Raise: hold for momentary, double tap to toggle. A single tap does nothing, so it can't lock the layer by accident.
+[[behavior.morse.morses]]
+hold = "MO(4)"
+hold_after_tap = "MO(4)"
+double_tap = "TG(4)"
 
 # Gaming Enter types Enter and swaps Gaming for Chat; Chat Enter or Esc swaps back.
 [[behavior.macro.macros]]
