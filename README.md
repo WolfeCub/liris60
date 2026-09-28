@@ -1,4 +1,10 @@
-# liris60
+<h1 align="center">
+  liris60
+</h1>
+
+<p align="center">
+  <img width="2499" height="1182" alt="image" src="https://github.com/user-attachments/assets/1fb32279-c6e6-4154-87f6-d7805f7dd49b" />
+</p>
 
 A handwired split keyboard running [RMK](https://rmk.rs).
 
