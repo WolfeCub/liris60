@@ -81,7 +81,7 @@ keys = """
 Escape     Kc1        Kc2        Kc3        Kc4        Kc5                                 Kc6        Kc7        Kc8        Kc9        Kc0        Backspace
 Tab        Q          W          E          R          T                                   Y          U          I          O          P          Backslash
 LCtrl      A          S          D          F          G          _             _          H          J          K          L          Semicolon  @chat_enter
-LShift     Z          X          C          V          B          Space         @raise     B          M          Comma      Dot        Slash      RShift
+LShift     Z          X          C          V          B          Space         _          B         M          Comma      Dot        Slash      RShift
                                  _          LAlt       LAlt       Space         @lower     LCtrl      LShift     _
 """
 
@@ -112,7 +112,7 @@ _          _          _          _          _          _                        
 _          _          _          _          _          _                                   _          MouseBtn1  MouseUp    MouseBtn2  _          _
 _          _          _          _          _          _          _             _          _          MouseLeft  MouseDown  MouseRight _          _
 _          _          _          _          _          _          @raise_tg     PageUp     _          _          _          _          _          Insert
-                                 _          _          _          _             PageDown   _          @pscr      _
+                                 @raise_tg  _          _          _             PageDown   _          @pscr      _
 """
 
 # Layer 5: Chat
