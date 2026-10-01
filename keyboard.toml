@@ -141,18 +141,23 @@ hold_after_tap = "MO(4)"
 double_tap = "TG(4)"
 
 # Gaming Enter types Enter and swaps Gaming for Chat; Chat Enter or Esc swaps back.
+# Hold Enter/Esc ~20ms: a macro "tap" is only 2ms, which games that poll key state per frame miss.
 [[behavior.macro.macros]]
 operations = [
-  { operation = "tap", keycode = "Enter" },
   { operation = "tap", keycode = "TG(1)" },
   { operation = "tap", keycode = "TG(5)" },
+  { operation = "down", keycode = "Enter" },
+  { operation = "delay", duration = "20ms" },
+  { operation = "up", keycode = "Enter" },
 ]
 
 [[behavior.macro.macros]]
 operations = [
-  { operation = "tap", keycode = "Escape" },
   { operation = "tap", keycode = "TG(1)" },
   { operation = "tap", keycode = "TG(5)" },
+  { operation = "down", keycode = "Escape" },
+  { operation = "delay", duration = "20ms" },
+  { operation = "up", keycode = "Escape" },
 ]
 
 [split]
