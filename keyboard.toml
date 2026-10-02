@@ -30,22 +30,12 @@ lprn = "SHIFTED(Kc9)"
 rprn = "SHIFTED(Kc0)"
 astr = "SHIFTED(Kc8)"
 plus = "SHIFTED(Equal)"
-tild = "SHIFTED(Grave)"
-perc = "SHIFTED(Kc5)"
 circ = "SHIFTED(Kc6)"
 exlm = "SHIFTED(Kc1)"
 at = "SHIFTED(Kc2)"
 hash = "SHIFTED(Kc3)"
-coln = "SHIFTED(Semicolon)"
-lt = "SHIFTED(Comma)"
-gt = "SHIFTED(Dot)"
-ques = "SHIFTED(Slash)"
-dquo = "SHIFTED(Quote)"
-unds = "SHIFTED(Minus)"
-stab = "SHIFTED(Tab)"
-sent = "SHIFTED(Enter)"
 esc_ctl = "MT(Escape, LCtrl)"
-shift = "MO(2)"
+shift = "LM(2, LShift)"
 lower = "MO(3)"
 raise = "TD(0)"
 raise_tg = "TG(4)"
@@ -85,14 +75,15 @@ LShift     Z          X          C          V          B          Space         
                                  _          LAlt       LAlt       Space         @lower     LCtrl      LShift     _
 """
 
-# Layer 2: Shift
+# Layer 2: Shift. Real Shift is held, so transparent keys come out shifted.
+# Keypad digits are placeholders that the forks below turn into unshifted digits.
 [[keymap.layer]]
 keys = """
-@tild      @perc      Kc7        Kc5        Kc3        Kc1                                 Kc9        Kc0        Kc2        Kc4        Kc6        Kc8
-@stab      @coln      @lt        @gt        SHIFTED(P) SHIFTED(Y)                          SHIFTED(F) SHIFTED(G) SHIFTED(C) SHIFTED(R) SHIFTED(L) @ques
-_          SHIFTED(A) SHIFTED(O) SHIFTED(E) SHIFTED(U) SHIFTED(I) _             _          SHIFTED(D) SHIFTED(H) SHIFTED(T) SHIFTED(N) SHIFTED(S) @sent
-_          @dquo      SHIFTED(Q) SHIFTED(J) SHIFTED(K) SHIFTED(X) @raise_tg     _          SHIFTED(B) SHIFTED(M) SHIFTED(W) SHIFTED(V) SHIFTED(Z) @unds
-                                 _          _          _          Space         Delete     _          @pscr      _
+Grave      Kc5        Kp7        Kp5        Kp3        Kp1                                 Kp9        Kp0        Kp2        Kp4        Kp6        Kp8
+_          _          _          _          _          _                                   _          _          _          _          _          _
+_          _          _          _          _          _          _             _          _          _          _          _          _          _
+_          _          _          _          _          _          @raise_tg     _          _          _          _          _          _          _
+                                 _          _          _          _             Delete     _          @pscr      _
 """
 
 # Layer 3: Lower
@@ -133,6 +124,23 @@ clear_layout = true
 [behavior.morse]
 hold_on_other_press = true
 hold_timeout = "150ms"
+
+# Shift-layer digits and Delete drop Shift unless Ctrl/Alt/Gui is also held, so Shift+2 types 2
+# but Ctrl+Shift+2 reaches the app. Forks always strip match_any mods, so the negative branch re-adds Shift.
+[behavior.fork]
+forks = [
+  { trigger = "Kp0", positive_output = "Kc0", negative_output = "SHIFTED(Kc0)", match_any = "LShift", match_none = "LCtrl | LAlt | LGui | RCtrl | RAlt | RGui" },
+  { trigger = "Kp1", positive_output = "Kc1", negative_output = "SHIFTED(Kc1)", match_any = "LShift", match_none = "LCtrl | LAlt | LGui | RCtrl | RAlt | RGui" },
+  { trigger = "Kp2", positive_output = "Kc2", negative_output = "SHIFTED(Kc2)", match_any = "LShift", match_none = "LCtrl | LAlt | LGui | RCtrl | RAlt | RGui" },
+  { trigger = "Kp3", positive_output = "Kc3", negative_output = "SHIFTED(Kc3)", match_any = "LShift", match_none = "LCtrl | LAlt | LGui | RCtrl | RAlt | RGui" },
+  { trigger = "Kp4", positive_output = "Kc4", negative_output = "SHIFTED(Kc4)", match_any = "LShift", match_none = "LCtrl | LAlt | LGui | RCtrl | RAlt | RGui" },
+  { trigger = "Kp5", positive_output = "Kc5", negative_output = "SHIFTED(Kc5)", match_any = "LShift", match_none = "LCtrl | LAlt | LGui | RCtrl | RAlt | RGui" },
+  { trigger = "Kp6", positive_output = "Kc6", negative_output = "SHIFTED(Kc6)", match_any = "LShift", match_none = "LCtrl | LAlt | LGui | RCtrl | RAlt | RGui" },
+  { trigger = "Kp7", positive_output = "Kc7", negative_output = "SHIFTED(Kc7)", match_any = "LShift", match_none = "LCtrl | LAlt | LGui | RCtrl | RAlt | RGui" },
+  { trigger = "Kp8", positive_output = "Kc8", negative_output = "SHIFTED(Kc8)", match_any = "LShift", match_none = "LCtrl | LAlt | LGui | RCtrl | RAlt | RGui" },
+  { trigger = "Kp9", positive_output = "Kc9", negative_output = "SHIFTED(Kc9)", match_any = "LShift", match_none = "LCtrl | LAlt | LGui | RCtrl | RAlt | RGui" },
+  { trigger = "Delete", positive_output = "Delete", negative_output = "SHIFTED(Delete)", match_any = "LShift", match_none = "LCtrl | LAlt | LGui | RCtrl | RAlt | RGui" },
+]
 
 # Raise: hold for momentary, double tap to toggle. A single tap does nothing, so it can't lock the layer by accident.
 [[behavior.morse.morses]]
@@ -196,3 +204,4 @@ col_pins = ["PIN_0", "PIN_1", "PIN_2", "PIN_3", "PIN_4", "PIN_5", "PIN_6"]
 
 [rmk]
 split_peripherals_num = 1
+fork_max_num = 11
