@@ -37,6 +37,13 @@ json = "0.12"
 const-gen = "1.6"
 toml = "1"
 
+# rmk 0.9.0 with fork modifier changes sent in their own report
+[patch.crates-io]
+rmk = { git = "https://github.com/WolfeCub/rmk", rev = "c2ddb571ba96eb8f977ee26005b2c9dd02f84132" }
+rmk-macro = { git = "https://github.com/WolfeCub/rmk", rev = "c2ddb571ba96eb8f977ee26005b2c9dd02f84132" }
+rmk-config = { git = "https://github.com/WolfeCub/rmk", rev = "c2ddb571ba96eb8f977ee26005b2c9dd02f84132" }
+rmk-types = { git = "https://github.com/WolfeCub/rmk", rev = "c2ddb571ba96eb8f977ee26005b2c9dd02f84132" }
+
 [[bin]]
 name = "central"
 path = "src/central.rs"
