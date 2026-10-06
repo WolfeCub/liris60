@@ -38,7 +38,7 @@
               doCheck = false;
             })
           ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
-            # hidapi (tools/bootsel) links libudev on Linux.
+            # hidapi (tools/via) links libudev on Linux.
             pkgs.pkg-config
             pkgs.udev
           ];

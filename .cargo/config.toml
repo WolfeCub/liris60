@@ -6,8 +6,10 @@ runner = "picotool load -u -v -x -t elf"
 target = "thumbv6m-none-eabi" # Cortex-M0 and Cortex-M0+
 
 [alias]
-# Reboot the central into BOOTSEL; built for this machine, not the RP2040.
-bootsel = "run -q --manifest-path tools/bootsel/Cargo.toml --target host-tuple"
+# Host-side Via commands for the central; built for this machine, not the RP2040.
+via = "run -q --manifest-path tools/via/Cargo.toml --target host-tuple --"
+bootsel = "via bootsel"
+reset-layout = "via reset"
 
 [env]
 DEFMT_LOG = "info"

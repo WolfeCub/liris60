@@ -68,10 +68,10 @@ _          Quote      Q          J          K          X          @lower        
 # Layer 1: Gaming
 [[keymap.layer]]
 keys = """
-Escape     Kc1        Kc2        Kc3        Kc4        Kc5                                 Kc6        Kc7        Kc8        Kc9        Kc0        Backspace
-Tab        Q          W          E          R          T                                   Y          U          I          O          P          Backslash
-LCtrl      A          S          D          F          G          _             _          H          J          K          L          Semicolon  @chat_enter
-LShift     Z          X          C          V          B          Space         _          B         M          Comma      Dot        Slash      RShift
+Escape     No         Kc1        Kc2        Kc3        Kc4                                 Kc6        Kc7        Kc8        Kc9        Kc0        Backspace
+Tab        No         Q          W          E          R                                   _          _          _          _          _          _
+LCtrl      LShift     A          S          D          F          G             _          _          _          _          _          _          @chat_enter
+No         LShift     Z          X          C          V          B             _          _          _          _          _          _          RShift
                                  _          LAlt       LAlt       Space         @lower     LCtrl      LShift     _
 """
 
@@ -115,10 +115,6 @@ _          _          _          _          _          _                        
 _          _          _          _          _          _          _             _          _          _          _          _          _          _
                                  _          _          _          _             _          _          _          _
 """
-
-[storage]
-# Reload the keymap from this file on boot.
-clear_layout = true
 
 # Match the old QMK config: 150ms tapping term, mod-taps become the modifier as soon as another key is pressed.
 [behavior.morse]

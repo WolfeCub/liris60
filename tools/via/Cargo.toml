@@ -1,8 +1,8 @@
 [package]
-name = "bootsel"
+name = "via"
 version = "0.1.0"
 edition = "2024"
-description = "Reboot the liris60 central into BOOTSEL over Via"
+description = "Send Via commands to the liris60 central"
 
 [dependencies]
 hidapi = "2"

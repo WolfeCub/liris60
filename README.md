@@ -36,7 +36,13 @@ A handwired split keyboard running [RMK](https://rmk.rs).
 
 Reboots the right half into its bootloader (BOOTSEL) without touching the board.
 
-- Sends Via's BootloaderJump command over USB (source in `tools/bootsel`)
+- Sends Via's BootloaderJump command over USB (source in `tools/via`)
 - Only works on the right half, since the left half has no USB interface of its own
 - On macOS it may need Input Monitoring permission for your terminal
 - To enter BOOTSEL without it, hold a half's top outer key while plugging it in, or press its BOOT button
+
+## `cargo reset-layout`
+
+Wipes any stored Vial changes. The keymap falls back to `keyboard.toml`.
+
+- Sends Via's EepromReset command over USB, then the right half reboots
