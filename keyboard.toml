@@ -138,6 +138,12 @@ forks = [
   { trigger = "Delete", positive_output = "Delete", negative_output = "SHIFTED(Delete)", match_any = "LShift", match_none = "LCtrl | LAlt | LGui | RCtrl | RAlt | RGui" },
 ]
 
+[behavior.combo]
+combos = [
+  { actions = ["J", "K"], output = "Backspace", layer = 0 },
+  { actions = ["M", "W"], output = "Enter", layer = 0 },
+]
+
 # Raise: hold for momentary, double tap to toggle. A single tap does nothing, so it can't lock the layer by accident.
 [[behavior.morse.morses]]
 hold = "MO(4)"
