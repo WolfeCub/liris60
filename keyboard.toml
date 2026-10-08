@@ -139,9 +139,12 @@ forks = [
 ]
 
 [behavior.combo]
+timeout = "30ms"
 combos = [
-  { actions = ["J", "K"], output = "Backspace", layer = 0 },
+  { actions = ["J", "K"], output = "Tab", layer = 0 },
+  { actions = ["Dot", "P"], output = "Escape", layer = 0 },
   { actions = ["M", "W"], output = "Enter", layer = 0 },
+  { actions = ["G", "C"], output = "Backspace", layer = 0 },
 ]
 
 # Raise: hold for momentary, double tap to toggle. A single tap does nothing, so it can't lock the layer by accident.
