@@ -35,7 +35,7 @@ exlm = "SHIFTED(Kc1)"
 at = "SHIFTED(Kc2)"
 hash = "SHIFTED(Kc3)"
 esc_ctl = "MT(Escape, LCtrl)"
-shift = "LM(2, LShift)"
+shift = "TD(1)"
 lower = "MO(3)"
 raise = "TD(0)"
 raise_tg = "TG(4)"
@@ -153,6 +153,13 @@ hold = "MO(4)"
 hold_after_tap = "MO(4)"
 double_tap = "TG(4)"
 
+# Shift: tap to shift the next key, hold for the Shift layer, double tap for Caps Word.
+[[behavior.morse.morses]]
+tap = "OSM(LShift)"
+hold = "LM(2, LShift)"
+hold_after_tap = "LM(2, LShift)"
+double_tap = "CapsWordToggle"
+
 # Gaming Enter types Enter and swaps Gaming for Chat; Chat Enter or Esc swaps back.
 # Hold Enter/Esc ~20ms: a macro "tap" is only 2ms, which games that poll key state per frame miss.
 [[behavior.macro.macros]]
@@ -172,6 +179,9 @@ operations = [
   { operation = "delay", duration = "20ms" },
   { operation = "up", keycode = "Escape" },
 ]
+
+[storage]
+enabled = false
 
 [split]
 connection = "serial"
