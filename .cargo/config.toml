@@ -10,6 +10,8 @@ target = "thumbv6m-none-eabi" # Cortex-M0 and Cortex-M0+
 via = "run -q --manifest-path tools/via/Cargo.toml --target host-tuple --"
 bootsel = "via bootsel"
 reset-layout = "via reset"
+# Render keyboard.toml to site/index.html.
+layout = "run -q --manifest-path tools/layout/Cargo.toml --target host-tuple --"
 
 [env]
 DEFMT_LOG = "info"

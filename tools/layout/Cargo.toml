@@ -1,0 +1,11 @@
+[package]
+name = "layout"
+version = "0.1.0"
+edition = "2024"
+description = "Render the liris60 keymap as a static HTML page"
+
+[dependencies]
+maud = "0.27"
+rmk-config = "0.8"
+rmk-types = "0.4"
+serde = "1"

@@ -11,12 +11,29 @@ chip = "rp2040"
 rows = 5
 cols = 14
 map = """
-(0,0,L)  (0,1,L)  (0,2,L)  (0,3,L)  (0,4,L)  (0,5,L)           [3]           (0,8,R)  (0,9,R)  (0,10,R) (0,11,R) (0,12,R) (0,13,R)
-(1,0,L)  (1,1,L)  (1,2,L)  (1,3,L)  (1,4,L)  (1,5,L)           [3]           (1,8,R)  (1,9,R)  (1,10,R) (1,11,R) (1,12,R) (1,13,R)
-(2,0,L)  (2,1,L)  (2,2,L)  (2,3,L)  (2,4,L)  (2,5,L)  (2,6,L)  [1]  (2,7,R)  (2,8,R)  (2,9,R)  (2,10,R) (2,11,R) (2,12,R) (2,13,R)
-(3,0,L)  (3,1,L)  (3,2,L)  (3,3,L)  (3,4,L)  (3,5,L)  (3,6,L)  [1]  (3,7,R)  (3,8,R)  (3,9,R)  (3,10,R) (3,11,R) (3,12,R) (3,13,R)
-            [3]            (4,3,L)  (4,4,L)  (4,5,L)  (4,6,L)  [1]  (4,7,R)  (4,8,R)  (4,9,R)  (4,10,R)
+(0,0,L,@outer) (0,1,L,@pinky) [0.15] (0,2,L,@ring) [0.05] (0,3,L)         [0.05] (0,4,L,@index)  [0.05] (0,5,L,@reach)                           [4.2]                          (0,8,R,@reach)  [0.05] (0,9,R,@index)  [0.05] (0,10,R)         [0.05] (0,11,R,@ring) [0.15] (0,12,R,@pinky) (0,13,R,@outer)
+(1,0,L,@outer) (1,1,L,@pinky) [0.15] (1,2,L,@ring) [0.05] (1,3,L)         [0.05] (1,4,L,@index)  [0.05] (1,5,L,@reach)                           [4.2]                          (1,8,R,@reach)  [0.05] (1,9,R,@index)  [0.05] (1,10,R)         [0.05] (1,11,R,@ring) [0.15] (1,12,R,@pinky) (1,13,R,@outer)
+(2,0,L,@outer) (2,1,L,@pinky) [0.15] (2,2,L,@ring) [0.05] (2,3,L)         [0.05] (2,4,L,@index)  [0.05] (2,5,L,@reach)         (2,6,L,@inner)    [2.2] (2,7,R,@inner)           (2,8,R,@reach)  [0.05] (2,9,R,@index)  [0.05] (2,10,R)         [0.05] (2,11,R,@ring) [0.15] (2,12,R,@pinky) (2,13,R,@outer)
+(3,0,L,@outer) (3,1,L,@pinky) [0.15] (3,2,L,@ring) [0.05] (3,3,L)         [0.05] (3,4,L,@index)  [0.05] (3,5,L,@reach)  [0.35] (3,6,L,@thumb5_l) [1.5] (3,7,R,@thumb5_r) [0.35] (3,8,R,@reach)  [0.05] (3,9,R,@index)  [0.05] (3,10,R)         [0.05] (3,11,R,@ring) [0.15] (3,12,R,@pinky) (3,13,R,@outer)
+[2.75]                                                    (4,3,L,@thumb1) [0.05] (4,4,L,@thumb2)        (4,5,L,@thumb3) [0.1]  (4,6,L,@thumb4_l) [3.0] (4,7,R,@thumb4_r) [0.1]  (4,8,R,@thumb3)        (4,9,R,@thumb2) [0.05] (4,10,R,@thumb1)
 """
+
+# Column stagger and thumb cluster in key units, measured off the build photo.
+# y nudges a key down and r tilts it, so the tilted thumb pair needs a shape per half.
+[layout.shapes]
+outer = { y = 0.88 }
+pinky = { y = 0.8 }
+ring = { y = 0.18 }
+index = { y = 0.02 }
+reach = { y = 0.05 }
+inner = { y = 0.55 }
+thumb1 = { y = 0.15 }
+thumb2 = { y = 0.12 }
+thumb3 = { y = 0.08 }
+thumb4_l = { y = 0.38, r = -43.0 }
+thumb4_r = { y = 0.38, r = 43.0 }
+thumb5_l = { y = 0.66, r = -43.0 }
+thumb5_r = { y = 0.66, r = 43.0 }
 
 # Layers: 0 Dvorak, 1 Gaming, 2 Shift, 3 Lower, 4 Raise, 5 Chat.
 [aliases]
@@ -75,8 +92,8 @@ No         LShift     Z          X          C          V          B             
                                  _          LAlt       LAlt       Space         @lower     LCtrl      LShift     _
 """
 
-# Layer 2: Shift. Real Shift is held, so transparent keys come out shifted.
-# Keypad digits are placeholders that the forks below turn into unshifted digits.
+# Layer 2: Shift
+# Real Shift is held, so transparent keys come out shifted. Keypad digits are placeholders that the forks below turn into unshifted digits.
 [[keymap.layer]]
 keys = """
 Grave      Kc5        Kp7        Kp5        Kp3        Kp1                                 Kp9        Kp0        Kp2        Kp4        Kp6        Kp8
